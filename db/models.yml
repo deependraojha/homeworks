@@ -1,0 +1,31 @@
+Book:
+  - title: string 
+  - author: string
+  - price: integer
+
+Read:
+  - title: string 
+  - author: string
+  - price: integer
+  - rating1: integer
+  - rating2: integer
+  - rating3: integer
+  - rating4: integer
+  - averagerating: float
+  - review1: string
+  - review2: string
+  - review3: string
+  - review4: string
+
+# Example table for a typical Book model.
+#
+# Book:
+#   - title: string
+#   - price: integer
+#   - author: string
+#   - summary: text
+#   - hardcover: boolean
+#
+# Follow the syntax exactly (colons and spacing are important).
+# Column type choices are: string, text, integer, and boolean.
+# You can have as many models as you want in this file.

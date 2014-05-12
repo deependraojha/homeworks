@@ -1,0 +1,30 @@
+<% all_books = Read.read %>
+
+<h2>Book Titles</h2>
+
+<ol>
+
+	<% all_books.each do |var| %> 
+		
+			<li>
+				<%=link_to var["title"], "/books/#{var["id"]}"%> Written by <%=var.author%>. Average star rating: 
+
+				<%=var["averagerating"]%>
+				
+				
+			</li>
+
+	<%end%>
+
+<ol>
+
+
+<ul> </ul>
+
+<p>
+
+	
+	<% gaa_ndu= Read.find_by(averagerating: Read.maximum(:averagerating))%>
+
+<b> Editor's Pick: <%= link_to gaa_ndu['title'],"/books/#{gaa_ndu["id"]}" %> with an average rating of <%= Read.maximum("averagerating") %>
+
