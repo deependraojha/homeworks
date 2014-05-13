@@ -11,6 +11,8 @@
 
 				<%=var["averagerating"]%>
 				
+				<% lo_du= Read.find_by(id: var["id"])%>
+				<%y= average(var.rating1, var.rating2, var.rating3, var.rating4)%>
 				
 			</li>
 
