@@ -1,4 +1,5 @@
-Homeworks::Application.routes.draw do
+  Homeworks::Application.routes.draw do
+  get 'books/list' => 'books/list'
   get 'books' => 'books/list'
   get "/books/:id" => "books/show"
   # The priority is based upon order of creation: first created -> highest priority.

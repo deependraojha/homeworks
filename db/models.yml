@@ -3,19 +3,11 @@ Book:
   - author: string
   - price: integer
 
-Read:
-  - title: string 
-  - author: string
-  - price: integer
-  - rating1: integer
-  - rating2: integer
-  - rating3: integer
-  - rating4: integer
-  - averagerating: float
-  - review1: string
-  - review2: string
-  - review3: string
-  - review4: string
+Review:
+  - title: string
+  - rating: integer
+  - comment: string
+
 
 # Example table for a typical Book model.
 #

@@ -2,7 +2,7 @@
 
 <% the_id = params["id"] %>
 
-<% the_book = Read.read(the_id) %>
+<% the_book = Book.read(the_id) %>
 
 <table border="5" style="width:500px">
 <head>
@@ -18,17 +18,40 @@
 
 <tr>
   <td><b>Average rating </b></td>
-  <td><%= the_book["averagerating"] %></td>
+  		<td>
+  						<% review = Review.find_by("title" => the_book["title"])%>
+
+					<% avg = Review.where("title" => the_book["title"]).average("rating")%>
+
+				<% if review.present? %> 
+							<% if avg.blank? %> 
+								<i>Not yet rated </i>
+							<% else %>
+								<%= avg.round(2) %> 
+									
+							<%end%>
+				<% else %>
+					Not rated
+  				<%end%>
+	  	</td>
 
 </tr>
 </table>
 </head>
 
-<h4> Reviews: </h4>
-<ul> <%= the_book["review1"] %> </ul>
-<ul> <%= the_book["review2"] %> </ul>
-<ul> <%= the_book["review3"] %> </ul>
-<ul> <%= the_book["review4"] %></ul>
+<h4> Reviews: </h4>	
+
+	<% if review.present? %>
+	<ul>
+  		<% reviews = Review.where("title" => the_book["title"]) %>
+	      <% reviews.each do |review| %>
+    		  <li><%= review.comment %></li>
+        <% end %>
+  <% else %>
+		No reviews
+  </ul>
+  <% end %>
+
 
 <p> 
 

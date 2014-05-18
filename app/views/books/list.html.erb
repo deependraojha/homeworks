@@ -1,30 +1,47 @@
-<% all_books = Read.read %>
 
 <h2>Book Titles</h2>
 
+<% all_books = Book.read %>
+
+<% avgmax = 0 %>
+<% editorpicktitle = "" %>
+
 <ol>
-
 	<% all_books.each do |var| %> 
-		
-			<li>
-				<%=link_to var["title"], "/books/#{var["id"]}"%> Written by <%=var.author%>. Average star rating: 
 
-				<%=var["averagerating"]%>
-				
-							
+			<li>
+				<%=link_to var["title"], "/books/#{var["id"]}"%> Written by <%=var.author%>. 
+
+					<% review = Review.find_by("title" => var["title"])%>
+
+					<% avg = Review.where("title" => var["title"]).average("rating")%>
+
+				<% if review.present? %> 
+					Average rating: 
+							<% if avg.blank? %> 
+								<i>Not yet rated </i>
+							<% else %>
+								<%= avg.round(2) %> 
+									<% if avg.round(2) > avgmax %> 
+										<% avgmax = avg %>
+										<% editorpicktitle = var["title"] %>
+									<%end%>
+
+							<%end%>
+				<% else %>
+					Average rating: Not rated
+  				<%end%>
+	
 			</li>
 
 	<%end%>
 
-<ol>
-
-
-<ul> </ul>
+	<ol>
 
 <p>
 
-	
-	<% gaa_ndu= Read.find_by(averagerating: Read.maximum(:averagerating))%>
 
-<b> Editor's Pick: <%= link_to gaa_ndu['title'],"/books/#{gaa_ndu["id"]}" %> with an average rating of <%= Read.maximum("averagerating") %>
+	<% gaa_ndu= Book.find_by("title" => editorpicktitle) %>
 
+<b> Editor's Pick: <%= link_to gaa_ndu['title'],"/books/#{gaa_ndu["id"]}" %> with an average rating of <%=avgmax %> </b>
+ 
